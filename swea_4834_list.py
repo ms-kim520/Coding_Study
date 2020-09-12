@@ -15,4 +15,5 @@ for test_case in range(1, T + 1):
         if v[1] ==highest:
             high.append(v[0])
     print('#%s %d %d'%(test_case,max(high), highest))
+    #가장 높은 값 출력
     
