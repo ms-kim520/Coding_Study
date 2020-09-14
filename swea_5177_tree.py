@@ -34,17 +34,23 @@ def check(N):
     if N >= 2:
         if tree[N]<tree[N//2]:
             tree[N], tree[N//2] = tree[N//2], tree[N]
-            print(f'{N} : {tree}')
             check(N//2)
 
+def result(N):
+    global a
+    if N>=2:
+        a += tree[N//2]
+        result(N//2)
 
 T=int(input())
 for test_case in range(1,T+1):
     N=int(input())
     lst = list(map(int,input().split()))
     tree = [0]
-    lot = len(tree) #length of tree
+    a = 0
     for l in lst:
         tree.append(l)
+        lot = len(tree) #length of tree
         check(lot-1)
-    print(tree)
+    result(N)
+    print(f'#{test_case} {a}')
