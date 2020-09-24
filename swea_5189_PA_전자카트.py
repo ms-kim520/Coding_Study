@@ -1,25 +1,34 @@
-def move(y,x):
-    global result
-    if x == N:
+def DFS(y,x):
+    global result,sub_result,visited_col
+    if result < sub_result:
         return
-    else:
-        result += office[y][x]
-        y+=1
-        if y>=N:
-            y = y%N
+
+    if y == N-1:
+        result = sub_result
+        return
+
+    if y == x or x in visited_col:
+        print(y,x,result)
         x+=1
-        move(y,x)
+        
+        DFS(y,x)
+    if x not in visited_col:
+        visited_col.append(x)
+        sub_result += office[y][x]
+        y+=1
+        print(y,x,result)
+        DFS(y,0)
+        visited_col.remove(x)
+        sub_result -= office[y][x]
+
+
         
 T=int(input())
 for test_case in range(1,T+1):
     N = int(input())
     office = [list(map(int,input().split())) for _ in range(N)]
-    result_list = []
-    x = 0
-    for y in range(N):
-        result = 0
-        move(y,x)
-        result_list.append(result)
-    result_list.remove(0)
-    print(f'#{test_case} {min(result_list)}')
+    visited_col = []
+    result,sub_result = 987654321,0
+    DFS(0,0)
+    print(f'#{test_case} {(sub_result)}')
     
